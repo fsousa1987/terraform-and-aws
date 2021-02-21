@@ -10,6 +10,7 @@ resource "aws_instance" "dev" {
   tags = {
     "Name" = "dev ${count.index}"
   }
+  vpc_security_group_ids = [ "sg-0031123d255755063" ]
 }
 
 resource "aws_security_group" "acesso-ssh" {
