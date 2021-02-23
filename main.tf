@@ -48,7 +48,7 @@ resource "aws_instance" "dev5" {
     "Name" = "dev 5"
   }
   vpc_security_group_ids = [ aws_security_group.acesso-ssh-us-east-1.id ]
-  depends_on = [ aws_s3_bucket.dev3 ]
+  depends_on = [ aws_dynamodb_table.dynamodb-homologacao ]
 }
 
 resource "aws_s3_bucket" "dev3" {
@@ -57,5 +57,23 @@ resource "aws_s3_bucket" "dev3" {
 
   tags = {
     Name = "franciscoedslabs-dev3"
+  }
+}
+
+resource "aws_dynamodb_table" "dynamodb-homologacao" {
+  provider = aws.us-east-1
+  name           = "GameScores"
+  billing_mode   = "PAY_PER_REQUEST"
+  hash_key       = "UserId"
+  range_key      = "GameTitle"
+
+  attribute {
+    name = "UserId"
+    type = "S"
+  }
+
+  attribute {
+    name = "GameTitle"
+    type = "S"
   }
 }
