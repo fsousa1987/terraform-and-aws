@@ -51,6 +51,15 @@ resource "aws_instance" "dev6" {
   vpc_security_group_ids = [ aws_security_group.acesso-ssh-us-east-1.id ]
 }
 
+resource "aws_s3_bucket" "homologacao" {
+  bucket = "franciscoedslabs-homologacao"
+  acl = "private"
+
+  tags = {
+    "Name" = "franciscoedslabs-homologacao"
+  }
+}
+
 resource "aws_dynamodb_table" "dynamodb-homologacao" {
   provider = aws.us-east-1
   name           = "GameScores"
